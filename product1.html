@@ -1,0 +1,123 @@
+<!Doctype html>
+    <head>
+        <title>Throw Dice</title>
+        <style>
+            #container{
+                width:250px;
+                padding:10px;
+                margin:auto;
+            }
+            #member-1{
+                width:200px;
+                border:2px solid pink;
+                padding:5px;
+                box-sizing:border-box;
+                text-align:center;
+                margin-bottom:10px;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            }
+            #member-2{
+                width:200px;
+                border:2px solid red;
+                text-align:center;
+                padding:5px;
+                box-sizing:border-box;
+                margin-bottom:10px;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            }
+            #member-3{
+                width:200px;
+                border:2px solid maroon;
+                padding:5px;
+                box-sizing:border-box;
+                text-align:center;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="member-1"></div>
+            <div id="member-2"></div>
+            <div id="member-3"></div>
+            <div id="winner"></div>
+            <button id="roll">Roll</button>
+        </div>
+    </body>
+</html>
+<script>
+
+   document.querySelector('#roll').addEventListener('click',rolltheDice);
+
+   function rolltheDice(){
+       const random = (min = 1, max = 6) => Math.floor(Math.random() *(max-min));
+
+       let x = random();
+       let y = random();
+       let z = random();
+
+       let c1 = '', c2 = '', c3 = '';
+
+       // green color
+       if(x>y && x>z) c1 = 'green'
+       else if(y>x && y>z) c2 ='green'
+       else if(z>x && z>y) c3 = 'green';
+
+       //red color
+       if(x<y && x<z) c1 = 'red'
+       else if(y<x && y<z) c2 = 'red'
+       else if(z<x && z<y) c3 = 'red';
+
+       //yellow color
+       if(x>y && x<z || x<y && x>z) c1 = 'yellow'
+       else if(y>x && y<z || y<x && y>z) c2 = 'yellow'
+       else if(z>x && z<y || z<x && z>y) c3 = 'yellow'
+
+        //blue color
+        if(x===y){
+            c1 = 'blue';
+            c2 = 'blue';
+        }else if(x===z){
+            c2 = 'blue';
+            c1 = 'blue';
+        }else if(y===z){
+            c2 = 'blue';
+            c3 = 'blue';
+        }else if(x===y && x===z){
+            c1 = 'blue';
+            c2 = 'blue';
+            c3 = 'blue';
+        }
+
+        const win = (x,y,z) => {
+            console.log(x,y,z)
+            let max = Math.max = (x,y,z);
+            if(max === x){
+                return 1;
+            }else if(max = y){
+                return 2;
+            }else if(max == z){
+                return 3;
+            }
+        }
+
+        let winner = document.querySelector('#winner');
+        winner.textContent = `Winner is Number + ${win(x,y,z)}`;
+
+        let m1 = document.querySelector('#member-1');
+        m1.textContent = x;
+        m1.style.backgroundColor = c1;
+
+        let m2 = document.querySelector('#member-2');
+        m2.textContent = y;
+        m2.style.backgroundColor = c2;
+
+        let m3 = document.querySelector('#member-3');
+        m3.textContent = z;
+        m3.style.backgroundColor = c3;
+
+   }
+
+   
+
+</script>
